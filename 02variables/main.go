@@ -4,6 +4,23 @@ import "fmt"
 
 const AccessToken string = "ejJh..." // Capital variable names refer that it is Public specified
 
+// primitive data types
+// string
+
+// bool
+
+// int  int8  int16  int32  int64
+// uint uint8 uint16 uint32 uint64 uintptr
+
+// byte // alias for uint8
+
+// rune // alias for int32
+//      // represents a Unicode code point
+
+// float32 float64
+
+// complex64 complex128
+
 func main() {
 	// var type variable_name = value_assigned
 	var name string = "foreverabhi"
@@ -14,7 +31,7 @@ func main() {
 	fmt.Println("isBooleanVal: ", isBooleanVal) // isBooleanVal: true
 	fmt.Printf("%T \n", isBooleanVal)           // bool
 
-	var smallVal int = 555
+	var smallVal = 555
 	fmt.Println("smallVal: ", smallVal) // smallVal: 555
 	fmt.Printf("%T \n", smallVal)       // int
 
