@@ -17,7 +17,8 @@ type bike struct {
 
 func main() {
 	fmt.Println("JSON")
-	EncodeJson()
+	// EncodeJson()
+	DecodeJson()
 }
 
 func EncodeJson() {
@@ -32,4 +33,41 @@ func EncodeJson() {
 		panic(err)
 	}
 	fmt.Printf("%s\n", finalJson)
+}
+
+func DecodeJson() {
+	jsonDataFromWeb := []byte(`
+	{
+        "bikeName": "Meteor Fireball Matte Green",    
+        "bikeEngine": "350cc",
+        "bikeBrand": "Royal Enfield",
+        "ManufacturedYear": 2023,
+        "FuelType": "Petrol",
+        "tags": [
+            "cruiser",
+            "bullet"
+        ]
+    }
+	`)
+
+	var bikes bike
+	checkValid := json.Valid(jsonDataFromWeb)
+
+	if checkValid {
+		fmt.Println("Valid JSON")
+		json.Unmarshal(jsonDataFromWeb, &bikes)
+		fmt.Printf("%#v\n", bikes)
+	} else {
+		fmt.Println("Not Valid JSON")
+	}
+
+	// some cases where you just want to add data to key value
+
+	var myOnlineData map[string]interface{}
+	json.Unmarshal(jsonDataFromWeb, &myOnlineData)
+	fmt.Printf("%#v\n", myOnlineData)
+
+	for k, v := range myOnlineData {
+		fmt.Printf("Key is %v, value is %v and type is %T\n", k, v, v)
+	}
 }
