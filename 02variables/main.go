@@ -22,7 +22,7 @@ const AccessToken string = "ejJh..." // Capital variable names refer that it is 
 // complex64 complex128
 
 func main() {
-	// var type variable_name = value_assigned
+	// var variable_name type = value_assigned
 	var name string = "foreverabhi"
 	fmt.Println("name: ", name) // name: foreverabhi
 	fmt.Printf("%T \n", name)   // string
