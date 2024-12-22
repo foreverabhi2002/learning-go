@@ -3,7 +3,10 @@ package config
 import (
 	"context"
 	"fmt"
+	"log"
+	"os"
 
+	"github.com/joho/godotenv"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
@@ -12,8 +15,15 @@ import (
 var DB *mongo.Client
 
 func ConnectDB() {
-	serverAPI := options.ServerAPI(options.ServerAPIVersion1)
-	opts := options.Client().ApplyURI("mongodb+srv://foreverabhi2002:abhi2002@cluster0.h3ozvpf.mongodb.net").SetServerAPIOptions(serverAPI)
+	// Find .env
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Fatalf("Error loading .env file: %s", err)
+	}
+
+	// Get value from .env
+	MONGO_URI := os.Getenv("MONGO_URI")
+	opts := options.Client().ApplyURI(MONGO_URI)
 
 	client, err := mongo.Connect(context.TODO(), opts)
 	if err != nil {
@@ -33,5 +43,7 @@ func ConnectDB() {
 }
 
 func GetCollection(collectionName string) *mongo.Collection {
-	return DB.Database("crud_go").Collection(collectionName)
+	val := DB.Database("crud_go").Collection(collectionName)
+	fmt.Println("hello", *val)
+	return val
 }
