@@ -11,10 +11,9 @@ import (
 
 func main() {
 	config.ConnectDB()
-
 	router := mux.NewRouter()
 	routes.RegisterItemRoutes(router)
 
-	log.Println("Server is running on port 8080")
-	log.Fatal(http.ListenAndServe(":8080", router))
+	log.Println("Server is running on port 5555")
+	log.Fatal(http.ListenAndServe(":5555", router))
 }

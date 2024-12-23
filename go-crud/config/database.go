@@ -23,7 +23,8 @@ func ConnectDB() {
 
 	// Get value from .env
 	MONGO_URI := os.Getenv("MONGO_URI")
-	opts := options.Client().ApplyURI(MONGO_URI)
+	serverAPI := options.ServerAPI(options.ServerAPIVersion1)
+	opts := options.Client().ApplyURI(MONGO_URI).SetServerAPIOptions(serverAPI)
 
 	client, err := mongo.Connect(context.TODO(), opts)
 	if err != nil {
@@ -40,10 +41,11 @@ func ConnectDB() {
 		panic(err)
 	}
 	fmt.Println("Pinged your deployment. You successfully connected to MongoDB!")
+	DB = client
 }
 
 func GetCollection(collectionName string) *mongo.Collection {
+	fmt.Println("hello", DB)
 	val := DB.Database("crud_go").Collection(collectionName)
-	fmt.Println("hello", *val)
 	return val
 }
